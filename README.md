@@ -44,7 +44,7 @@ A Java console application for managing student academic records with CGPA/SGPA 
 
 ### Prerequisites
 
-- **Java 17 or higher**
+- **Java 21 or higher**
 - **Maven 3.6+** (optional - for building)
 
 ### Running the Application
@@ -183,7 +183,7 @@ mvn package
 
 ### Technologies Used
 
-- **Java 17**: Modern Java features (records not used for simplicity)
+- **Java 21**: Modern Java LTS version with latest language features
 - **Maven**: Build automation
 - **Gson 2.10.1**: JSON serialization
 - **JUnit 5.10.1**: Unit testing
