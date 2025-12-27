@@ -1,0 +1,262 @@
+[
+  {
+    "rollNo": "MACE001",
+    "name": "John Doe",
+    "currentSemester": 3,
+    "semesters": [
+      {
+        "semesterNumber": 1,
+        "subjects": [
+          {
+            "name": "Mathematics",
+            "marks": 85.0,
+            "credits": 4
+          },
+          {
+            "name": "Physics",
+            "marks": 90.0,
+            "credits": 3
+          },
+          {
+            "name": "Chemistry",
+            "marks": 85.0,
+            "credits": 3
+          }
+        ],
+        "sgpa": 9.0
+      },
+      {
+        "semesterNumber": 2,
+        "subjects": [
+          {
+            "name": "Data Structures",
+            "marks": 80.0,
+            "credits": 4
+          },
+          {
+            "name": "Database Management",
+            "marks": 85.0,
+            "credits": 3
+          },
+          {
+            "name": "Operating Systems",
+            "marks": 82.0,
+            "credits": 3
+          }
+        ],
+        "sgpa": 8.5
+      }
+    ],
+    "cgpa": 8.975
+  },
+  {
+    "rollNo": "MACE005",
+    "name": "David Brown",
+    "currentSemester": 2,
+    "semesters": [
+      {
+        "semesterNumber": 1,
+        "subjects": [
+          {
+            "name": "Mathematics",
+            "marks": 65.0,
+            "credits": 4
+          },
+          {
+            "name": "Physics",
+            "marks": 62.0,
+            "credits": 3
+          },
+          {
+            "name": "Chemistry",
+            "marks": 70.0,
+            "credits": 3
+          }
+        ],
+        "sgpa": 6.75
+      },
+      {
+        "semesterNumber": 2,
+        "subjects": [
+          {
+            "name": "Data Structures",
+            "marks": 72.0,
+            "credits": 4
+          },
+          {
+            "name": "Database Management",
+            "marks": 75.0,
+            "credits": 3
+          },
+          {
+            "name": "Operating Systems",
+            "marks": 70.0,
+            "credits": 3
+          }
+        ],
+        "sgpa": 7.45
+      }
+    ],
+    "cgpa": 7.325
+  },
+  {
+    "rollNo": "MACE004",
+    "name": "Carol White",
+    "currentSemester": 4,
+    "semesters": [
+      {
+        "semesterNumber": 1,
+        "subjects": [
+          {
+            "name": "Mathematics",
+            "marks": 88.0,
+            "credits": 4
+          },
+          {
+            "name": "Physics",
+            "marks": 85.0,
+            "credits": 3
+          },
+          {
+            "name": "Chemistry",
+            "marks": 90.0,
+            "credits": 3
+          }
+        ],
+        "sgpa": 8.95
+      },
+      {
+        "semesterNumber": 2,
+        "subjects": [
+          {
+            "name": "Data Structures",
+            "marks": 92.0,
+            "credits": 4
+          },
+          {
+            "name": "Database Management",
+            "marks": 88.0,
+            "credits": 3
+          },
+          {
+            "name": "Operating Systems",
+            "marks": 85.0,
+            "credits": 3
+          }
+        ],
+        "sgpa": 9.15
+      },
+      {
+        "semesterNumber": 3,
+        "subjects": [
+          {
+            "name": "Java Programming",
+            "marks": 95.0,
+            "credits": 4
+          },
+          {
+            "name": "Python Programming",
+            "marks": 90.0,
+            "credits": 3
+          },
+          {
+            "name": "Web Technologies",
+            "marks": 88.0,
+            "credits": 3
+          }
+        ],
+        "sgpa": 9.35
+      }
+    ],
+    "cgpa": 9.466666666666667
+  },
+  {
+    "rollNo": "MACE003",
+    "name": "Bob Smith",
+    "currentSemester": 1,
+    "semesters": [
+      {
+        "semesterNumber": 1,
+        "subjects": [
+          {
+            "name": "Mathematics",
+            "marks": 75.0,
+            "credits": 4
+          },
+          {
+            "name": "Physics",
+            "marks": 70.0,
+            "credits": 3
+          },
+          {
+            "name": "Chemistry",
+            "marks": 78.0,
+            "credits": 3
+          }
+        ],
+        "sgpa": 7.75
+      }
+    ],
+    "cgpa": 7.85
+  },
+  {
+    "rollNo": "MACE002",
+    "name": "Alice Johnson",
+    "currentSemester": 2,
+    "semesters": [
+      {
+        "semesterNumber": 1,
+        "subjects": [
+          {
+            "name": "Mathematics",
+            "marks": 92.0,
+            "credits": 4
+          },
+          {
+            "name": "Physics",
+            "marks": 95.0,
+            "credits": 3
+          },
+          {
+            "name": "Chemistry",
+            "marks": 88.0,
+            "credits": 3
+          },
+          {
+            "name": "English",
+            "marks": 85.0,
+            "credits": 2
+          }
+        ],
+        "sgpa": 9.41666666666667
+      },
+      {
+        "semesterNumber": 2,
+        "subjects": [
+          {
+            "name": "Data Structures",
+            "marks": 90.0,
+            "credits": 4
+          },
+          {
+            "name": "Database Management",
+            "marks": 92.0,
+            "credits": 3
+          },
+          {
+            "name": "Operating Systems",
+            "marks": 88.0,
+            "credits": 3
+          },
+          {
+            "name": "Computer Networks",
+            "marks": 85.0,
+            "credits": 3
+          }
+        ],
+        "sgpa": 9.115384615384615
+      }
+    ],
+    "cgpa": 9.56
+  }
+]
