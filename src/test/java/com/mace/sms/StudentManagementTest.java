@@ -205,9 +205,14 @@ class StudentManagementTest {
 
         // Clear existing students from JSON file
         var rollNos = manager.getAllStudents().stream()
-            .map(s -> s.getRollNo())
-            .toList();
+                .map(s -> s.getRollNo())
+                .toList();
         rollNos.forEach(manager::deleteStudent);
+
+        Student s1 = new Student("CS001", "Alice", 1);
+        Semester sem1 = new Semester(1);
+        sem1.addSubject(new Subject("Math", 90, 4));
+        s1.addSemester(sem1);
 
         Student s2 = new Student("CS002", "Bob", 1);
         Semester sem2 = new Semester(1);
@@ -229,9 +234,14 @@ class StudentManagementTest {
 
         // Clear existing students from JSON file
         var rollNos = manager.getAllStudents().stream()
-            .map(s -> s.getRollNo())
-            .toList();
+                .map(s -> s.getRollNo())
+                .toList();
         rollNos.forEach(manager::deleteStudent);
+
+        Student s1 = new Student("CS001", "Alice", 1);
+        Semester sem1 = new Semester(1);
+        sem1.addSubject(new Subject("Math", 90, 4));
+        s1.addSemester(sem1);
 
         Student s2 = new Student("CS002", "Bob", 1);
         Semester sem2 = new Semester(1);
