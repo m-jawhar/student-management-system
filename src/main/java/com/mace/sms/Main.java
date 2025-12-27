@@ -95,7 +95,7 @@ public class Main {
 
             manager.addStudent(student);
             System.out.println("✅ Student added! Roll: " + rollNo + ", CGPA: " +
-                    String.format("%.2f", student.getCgpa()));
+                    "%.2f".formatted(student.getCgpa()));
         } catch (Exception e) {
             System.out.println("❌ Error: " + e.getMessage());
         }
@@ -123,7 +123,7 @@ public class Main {
             manager.addSemesterToStudent(rollNo, semester);
 
             System.out.println("✅ Semester " + semNum + " added! New CGPA: " +
-                    String.format("%.2f", student.getCgpa()));
+                    "%.2f".formatted(student.getCgpa()));
         } catch (Exception e) {
             System.out.println("❌ Error: " + e.getMessage());
         }
@@ -204,7 +204,7 @@ public class Main {
             Student student = studentOpt.get();
             System.out.println("\nAvailable Semesters:");
             student.getSemesters().forEach(s -> System.out.println("  Semester " + s.getSemesterNumber() +
-                    " - SGPA: " + String.format("%.2f", s.getSgpa())));
+                    " - SGPA: " + "%.2f".formatted(s.getSgpa())));
 
             int semNum = InputValidator.readSemester(scanner, "Semester number: ");
 
@@ -223,7 +223,7 @@ public class Main {
 
             if (manager.updateSubjectMarks(rollNo, semNum, subjectName, newMarks)) {
                 System.out.println("✅ Marks updated! New CGPA: " +
-                        String.format("%.2f", student.getCgpa()));
+                        "%.2f".formatted(student.getCgpa()));
             } else {
                 System.out.println("❌ Subject not found");
             }
@@ -269,9 +269,9 @@ public class Main {
         System.out.println("                         STATISTICS");
         System.out.println("═".repeat(79));
         System.out.println("Total Students: " + stats.get("totalStudents"));
-        System.out.println("Average CGPA: " + String.format("%.2f", (double) stats.get("averageCGPA")));
-        System.out.println("Highest CGPA: " + String.format("%.2f", (double) stats.get("maxCGPA")));
-        System.out.println("Lowest CGPA: " + String.format("%.2f", (double) stats.get("minCGPA")));
+        System.out.println("Average CGPA: " + "%.2f".formatted((double) stats.get("averageCGPA")));
+        System.out.println("Highest CGPA: " + "%.2f".formatted((double) stats.get("maxCGPA")));
+        System.out.println("Lowest CGPA: " + "%.2f".formatted((double) stats.get("minCGPA")));
 
         System.out.println("\nClassification Distribution:");
         @SuppressWarnings("unchecked")

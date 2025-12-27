@@ -202,6 +202,9 @@ class StudentManagementTest {
     @Test
     void testManagerLeaderboard() {
         StudentManager manager = new StudentManager();
+        
+        // Clear existing students from JSON file
+        manager.getAllStudents().forEach(s -> manager.deleteStudent(s.getRollNo()));
 
         Student s1 = new Student("CS001", "Alice", 1);
         Semester sem1 = new Semester(1);
@@ -218,13 +221,16 @@ class StudentManagementTest {
 
         var leaderboard = manager.getLeaderboard();
         assertEquals(2, leaderboard.size());
-        assertEquals("Alice", leaderboard.get(0).getName()); // Higher CGPA first
+        assertEquals("Alice", leaderboard.getFirst().getName()); // Higher CGPA first
         assertEquals("Bob", leaderboard.get(1).getName());
     }
 
     @Test
     void testManagerStatistics() {
         StudentManager manager = new StudentManager();
+        
+        // Clear existing students from JSON file
+        manager.getAllStudents().forEach(s -> manager.deleteStudent(s.getRollNo()));
 
         Student s1 = new Student("CS001", "Alice", 1);
         Semester sem1 = new Semester(1);

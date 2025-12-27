@@ -1,5 +1,6 @@
 package com.mace.sms.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -7,6 +8,7 @@ import java.io.Serializable;
  * Follows Mar Athanasius College of Engineering 2024 regulations.
  */
 public class Subject implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String name;
@@ -118,7 +120,7 @@ public class Subject implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%-30s | %6.2f | %2d | %2s | %4.1f",
+        return "%-30s | %6.2f | %2d | %2s | %4.1f".formatted(
                 name, marks, credits, getGradeLetter(), getGradePoint());
     }
 }

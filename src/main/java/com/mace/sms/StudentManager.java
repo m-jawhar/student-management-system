@@ -286,13 +286,13 @@ public class StudentManager {
                 writer.write("Roll Number: " + student.getRollNo() + "\n");
                 writer.write("Name: " + student.getName() + "\n");
                 writer.write("Current Semester: " + student.getCurrentSemester() + "\n");
-                writer.write("CGPA: " + String.format("%.2f", student.getCgpa()) + "\n");
+                writer.write("CGPA: " + "%.2f".formatted(student.getCgpa()) + "\n");
                 writer.write("Classification: " + student.getClassification() + "\n");
                 writer.write("\n" + "=".repeat(80) + "\n\n");
 
                 for (Semester semester : student.getSemesters()) {
                     writer.write("Semester " + semester.getSemesterNumber() +
-                            " - SGPA: " + String.format("%.2f", semester.getSgpa()) + "\n");
+                            " - SGPA: " + "%.2f".formatted(semester.getSgpa()) + "\n");
                     writer.write("-".repeat(80) + "\n");
 
                     semester.getSubjects().forEach(subject -> {

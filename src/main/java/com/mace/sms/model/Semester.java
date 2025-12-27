@@ -1,5 +1,6 @@
 package com.mace.sms.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.List;
  * Calculates SGPA (Semester Grade Point Average) for the semester.
  */
 public class Semester implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private int semesterNumber; // 1-8
@@ -118,7 +120,7 @@ public class Semester implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Semester %d: SGPA = %.2f (%d credits, %d subjects)",
+        return "Semester %d: SGPA = %.2f (%d credits, %d subjects)".formatted(
                 semesterNumber, sgpa, getTotalCredits(), subjects.size());
     }
 }

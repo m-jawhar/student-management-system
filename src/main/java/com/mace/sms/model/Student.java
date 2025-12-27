@@ -1,5 +1,6 @@
 package com.mace.sms.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +12,7 @@ import java.util.Optional;
  * Tracks multiple semesters and calculates CGPA.
  */
 public class Student implements Serializable, Comparable<Student> {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String rollNo;
@@ -186,7 +188,7 @@ public class Student implements Serializable, Comparable<Student> {
 
     @Override
     public String toString() {
-        return String.format("%-15s | %-30s | Sem: %d | CGPA: %.2f",
+        return "%-15s | %-30s | Sem: %d | CGPA: %.2f".formatted(
                 rollNo, name, currentSemester, cgpa);
     }
 

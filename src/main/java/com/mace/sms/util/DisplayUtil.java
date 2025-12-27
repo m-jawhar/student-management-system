@@ -77,8 +77,8 @@ public class DisplayUtil {
         System.out.println("Roll Number      : " + student.getRollNo());
         System.out.println("Name             : " + student.getName());
         System.out.println("Current Semester : " + student.getCurrentSemester());
-        System.out.println("CGPA             : " + String.format("%.2f", student.getCgpa()));
-        System.out.println("Percentage       : " + String.format("%.2f%%", student.getEquivalentPercentage()));
+        System.out.println("CGPA             : " + "%.2f".formatted(student.getCgpa()));
+        System.out.println("Percentage       : " + "%.2f%%".formatted(student.getEquivalentPercentage()));
         System.out.println("Classification   : " + student.getClassification());
         System.out.println("Total Credits    : " + student.getTotalCredits());
         System.out.println();
@@ -95,7 +95,7 @@ public class DisplayUtil {
 
         for (Semester semester : student.getSemesters()) {
             System.out.println("\n📚 SEMESTER " + semester.getSemesterNumber() +
-                    " - SGPA: " + String.format("%.2f", semester.getSgpa()));
+                    " - SGPA: " + "%.2f".formatted(semester.getSgpa()));
             System.out.println(DASH_LINE);
             System.out.printf("%-30s | %-6s | %-7s | %-5s | %-5s%n",
                     "Subject Name", "Marks", "Credits", "Grade", "GP");
@@ -198,9 +198,9 @@ public class DisplayUtil {
         System.out.println(HORIZONTAL_LINE);
 
         System.out.println("Total Students   : " + stats.get("totalStudents"));
-        System.out.println("Average CGPA     : " + String.format("%.2f", stats.get("averageCGPA")));
+        System.out.println("Average CGPA     : " + "%.2f".formatted(stats.get("averageCGPA")));
         System.out.println("Topper           : " + stats.get("topperName"));
-        System.out.println("Topper CGPA      : " + String.format("%.2f", stats.get("topperCGPA")));
+        System.out.println("Topper CGPA      : " + "%.2f".formatted(stats.get("topperCGPA")));
 
         System.out.println("\n" + DASH_LINE);
         System.out.println("CLASSIFICATION DISTRIBUTION:");
