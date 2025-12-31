@@ -146,11 +146,13 @@ public class Main {
 
         for (int i = 1; i <= subjectCount; i++) {
             System.out.println("\n--- Subject " + i + " ---");
+            String courseCode = InputValidator.readNonEmptyString(scanner, "Course code (e.g., CS101): ");
             String name = InputValidator.readNonEmptyString(scanner, "Subject name: ");
+            String instructor = InputValidator.readNonEmptyString(scanner, "Instructor name: ");
             double marks = InputValidator.readMarks(scanner, "Marks (0-100): ");
             int credits = InputValidator.readCredits(scanner, "Credits: ");
 
-            semester.addSubject(new Subject(name, marks, credits));
+            semester.addSubject(new Subject(courseCode, name, instructor, marks, credits));
         }
         return semester;
     }

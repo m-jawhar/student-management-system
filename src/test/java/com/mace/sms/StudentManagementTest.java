@@ -20,7 +20,7 @@ class StudentManagementTest {
 
     @Test
     void testSubjectGradeS() {
-        Subject subject = new Subject("Mathematics", 95, 4);
+        Subject subject = new Subject("MATH101", "Mathematics", "Dr. Smith", 95, 4);
         assertEquals("S", subject.getGradeLetter());
         assertEquals(10.0, subject.getGradePoint());
         assertEquals(40.0, subject.getCreditPoints());
@@ -28,7 +28,7 @@ class StudentManagementTest {
 
     @Test
     void testSubjectGradeA() {
-        Subject subject = new Subject("Physics", 82, 3);
+        Subject subject = new Subject("PHY101", "Physics", "Dr. Johnson", 82, 3);
         assertEquals("A", subject.getGradeLetter());
         assertEquals(8.5, subject.getGradePoint());
         assertEquals(25.5, subject.getCreditPoints());
@@ -36,7 +36,7 @@ class StudentManagementTest {
 
     @Test
     void testSubjectGradeF() {
-        Subject subject = new Subject("Chemistry", 45, 3);
+        Subject subject = new Subject("CHEM101", "Chemistry", "Dr. Brown", 45, 3);
         assertEquals("F", subject.getGradeLetter());
         assertEquals(0.0, subject.getGradePoint());
         assertEquals(0.0, subject.getCreditPoints());
@@ -45,14 +45,14 @@ class StudentManagementTest {
     @Test
     void testSubjectInvalidMarks() {
         assertThrows(IllegalArgumentException.class,
-                () -> new Subject("Test", -10, 3));
+                () -> new Subject("TEST101", "Test", "Dr. Test", -10, 3));
         assertThrows(IllegalArgumentException.class,
-                () -> new Subject("Test", 110, 3));
+                () -> new Subject("TEST101", "Test", "Dr. Test", 110, 3));
     }
 
     @Test
     void testSubjectMarksUpdate() {
-        Subject subject = new Subject("Math", 50, 3);
+        Subject subject = new Subject("MATH101", "Math", "Dr. Davis", 50, 3);
         assertEquals("P", subject.getGradeLetter());
 
         subject.setMarks(90);
@@ -65,9 +65,9 @@ class StudentManagementTest {
     @Test
     void testSemesterSGPACalculation() {
         Semester semester = new Semester(1);
-        semester.addSubject(new Subject("Math", 90, 4)); // S = 10.0, CP = 40
-        semester.addSubject(new Subject("Physics", 85, 3)); // A+ = 9.0, CP = 27
-        semester.addSubject(new Subject("Chemistry", 75, 3)); // B+ = 8.0, CP = 24
+        semester.addSubject(new Subject("MATH101", "Math", "Dr. Smith", 90, 4)); // S = 10.0, CP = 40
+        semester.addSubject(new Subject("PHY101", "Physics", "Dr. Johnson", 85, 3)); // A+ = 9.0, CP = 27
+        semester.addSubject(new Subject("CHEM101", "Chemistry", "Dr. Brown", 75, 3)); // B+ = 8.0, CP = 24
 
         // SGPA = (40 + 27 + 24) / (4 + 3 + 3) = 91 / 10 = 9.1
         assertEquals(9.1, semester.getSgpa(), 0.01);
@@ -77,8 +77,8 @@ class StudentManagementTest {
     @Test
     void testSemesterWithFailedSubject() {
         Semester semester = new Semester(1);
-        semester.addSubject(new Subject("Math", 90, 4)); // 40 CP
-        semester.addSubject(new Subject("Physics", 40, 3)); // 0 CP
+        semester.addSubject(new Subject("MATH101", "Math", "Dr. Smith", 90, 4)); // 40 CP
+        semester.addSubject(new Subject("PHY101", "Physics", "Dr. Johnson", 40, 3)); // 0 CP
 
         // SGPA = 40 / 7 = 5.71
         assertEquals(5.71, semester.getSgpa(), 0.01);
@@ -93,7 +93,7 @@ class StudentManagementTest {
     @Test
     void testSemesterUpdateMarks() {
         Semester semester = new Semester(1);
-        semester.addSubject(new Subject("Math", 80, 4));
+        semester.addSubject(new Subject("MATH101", "Math", "Dr. Smith", 80, 4));
 
         double initialSGPA = semester.getSgpa();
         assertEquals(8.5, initialSGPA, 0.01);
@@ -110,8 +110,8 @@ class StudentManagementTest {
 
         // Semester 1
         Semester sem1 = new Semester(1);
-        sem1.addSubject(new Subject("Math", 90, 4)); // 40 CP
-        sem1.addSubject(new Subject("Physics", 85, 3)); // 27 CP
+        sem1.addSubject(new Subject("MATH101", "Math", "Dr. Smith", 90, 4)); // 40 CP
+        sem1.addSubject(new Subject("PHY101", "Physics", "Dr. Johnson", 85, 3)); // 27 CP
         student.addSemester(sem1);
 
         double sgpa1 = 67.0 / 7.0; // 9.57
@@ -119,8 +119,8 @@ class StudentManagementTest {
 
         // Semester 2
         Semester sem2 = new Semester(2);
-        sem2.addSubject(new Subject("Chemistry", 80, 3)); // 25.5 CP
-        sem2.addSubject(new Subject("Biology", 75, 4)); // 32 CP
+        sem2.addSubject(new Subject("CHEM101", "Chemistry", "Dr. Brown", 80, 3)); // 25.5 CP
+        sem2.addSubject(new Subject("BIO101", "Biology", "Dr. Wilson", 75, 4)); // 32 CP
         student.addSemester(sem2);
 
         // CGPA = (67 + 25.5 + 32) / (7 + 7) = 124.5 / 14 = 8.89
@@ -131,14 +131,14 @@ class StudentManagementTest {
     void testStudentClassification() {
         Student student1 = new Student("CS001", "John", 1);
         Semester sem1 = new Semester(1);
-        sem1.addSubject(new Subject("Math", 90, 4));
+        sem1.addSubject(new Subject("MATH101", "Math", "Dr. Smith", 90, 4));
         student1.addSemester(sem1);
 
         assertEquals("First Class with Distinction", student1.getClassification());
 
         Student student2 = new Student("CS002", "Jane", 1);
         Semester sem2 = new Semester(1);
-        sem2.addSubject(new Subject("Math", 70, 4));
+        sem2.addSubject(new Subject("MATH101", "Math", "Dr. Smith", 70, 4));
         student2.addSemester(sem2);
 
         assertEquals("First Class", student2.getClassification());
@@ -148,12 +148,12 @@ class StudentManagementTest {
     void testStudentDuplicateSemester() {
         Student student = new Student("CS001", "John", 2);
         Semester sem1 = new Semester(1);
-        sem1.addSubject(new Subject("Math", 90, 4));
+        sem1.addSubject(new Subject("MATH101", "Math", "Dr. Smith", 90, 4));
 
         student.addSemester(sem1);
 
         Semester duplicate = new Semester(1);
-        duplicate.addSubject(new Subject("Physics", 85, 3));
+        duplicate.addSubject(new Subject("PHY101", "Physics", "Dr. Johnson", 85, 3));
 
         assertThrows(IllegalArgumentException.class,
                 () -> student.addSemester(duplicate));
@@ -163,7 +163,7 @@ class StudentManagementTest {
     void testStudentUpdateSubjectMarks() {
         Student student = new Student("CS001", "John", 1);
         Semester sem = new Semester(1);
-        sem.addSubject(new Subject("Math", 80, 4));
+        sem.addSubject(new Subject("MATH101", "Math", "Dr. Smith", 80, 4));
         student.addSemester(sem);
 
         double initialCGPA = student.getCgpa();
@@ -211,12 +211,12 @@ class StudentManagementTest {
 
         Student s1 = new Student("CS001", "Alice", 1);
         Semester sem1 = new Semester(1);
-        sem1.addSubject(new Subject("Math", 90, 4));
+        sem1.addSubject(new Subject("MATH102", "Math", "Dr. Lee", 90, 4));
         s1.addSemester(sem1);
 
         Student s2 = new Student("CS002", "Bob", 1);
         Semester sem2 = new Semester(1);
-        sem2.addSubject(new Subject("Math", 80, 4));
+        sem2.addSubject(new Subject("MATH101", "Math", "Dr. Smith", 80, 4));
         s2.addSemester(sem2);
 
         manager.addStudent(s1);
@@ -240,12 +240,12 @@ class StudentManagementTest {
 
         Student s1 = new Student("CS001", "Alice", 1);
         Semester sem1 = new Semester(1);
-        sem1.addSubject(new Subject("Math", 90, 4));
+        sem1.addSubject(new Subject("MATH201", "Math", "Dr. Taylor", 90, 4));
         s1.addSemester(sem1);
 
         Student s2 = new Student("CS002", "Bob", 1);
         Semester sem2 = new Semester(1);
-        sem2.addSubject(new Subject("Math", 60, 4));
+        sem2.addSubject(new Subject("MATH201", "Math", "Dr. Taylor", 60, 4));
         s2.addSemester(sem2);
 
         manager.addStudent(s1);

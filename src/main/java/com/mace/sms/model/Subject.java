@@ -11,32 +11,55 @@ public class Subject implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private String courseCode;
     private String name;
+    private String instructor;
     private double marks; // Out of 100
     private int credits;
 
     /**
      * Creates a new Subject with the given details.
      *
-     * @param name    Subject name
-     * @param marks   Marks obtained (0-100)
-     * @param credits Credit hours for this subject
+     * @param courseCode Course code (e.g., CS101, MATH201)
+     * @param name       Subject name
+     * @param instructor Instructor/Professor name
+     * @param marks      Marks obtained (0-100)
+     * @param credits    Credit hours for this subject
      */
-    public Subject(String name, double marks, int credits) {
+    public Subject(String courseCode, String name, String instructor, double marks, int credits) {
+        if (courseCode == null || courseCode.trim().isEmpty()) {
+            throw new IllegalArgumentException("Course code cannot be empty");
+        }
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Subject name cannot be empty");
+        }
+        if (instructor == null || instructor.trim().isEmpty()) {
+            throw new IllegalArgumentException("Instructor name cannot be empty");
+        }
         if (marks < 0 || marks > 100) {
             throw new IllegalArgumentException("Marks must be between 0 and 100");
         }
         if (credits <= 0) {
             throw new IllegalArgumentException("Credits must be positive");
         }
+        this.courseCode = courseCode;
         this.name = name;
+        this.instructor = instructor;
         this.marks = marks;
         this.credits = credits;
     }
 
     // Getters
+    public String getCourseCode() {
+        return courseCode;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public String getInstructor() {
+        return instructor;
     }
 
     public double getMarks() {
@@ -120,7 +143,7 @@ public class Subject implements Serializable {
 
     @Override
     public String toString() {
-        return "%-30s | %6.2f | %2d | %2s | %4.1f".formatted(
-                name, marks, credits, getGradeLetter(), getGradePoint());
+        return "%-10s | %-25s | %-20s | %6.2f | %2d | %2s | %4.1f".formatted(
+                courseCode, name, instructor, marks, credits, getGradeLetter(), getGradePoint());
     }
 }

@@ -97,13 +97,15 @@ public class DisplayUtil {
             System.out.println("\n📚 SEMESTER " + semester.getSemesterNumber() +
                     " - SGPA: " + "%.2f".formatted(semester.getSgpa()));
             System.out.println(DASH_LINE);
-            System.out.printf("%-30s | %-6s | %-7s | %-5s | %-5s%n",
-                    "Subject Name", "Marks", "Credits", "Grade", "GP");
+            System.out.printf("%-10s | %-25s | %-20s | %-6s | %-7s | %-5s | %-5s%n",
+                    "Code", "Subject Name", "Instructor", "Marks", "Credits", "Grade", "GP");
             System.out.println(DASH_LINE);
 
             for (Subject subject : semester.getSubjects()) {
-                System.out.printf("%-30s | %6.2f | %7d | %5s | %5.1f%n",
+                System.out.printf("%-10s | %-25s | %-20s | %6.2f | %7d | %5s | %5.1f%n",
+                        subject.getCourseCode(),
                         subject.getName(),
+                        subject.getInstructor(),
                         subject.getMarks(),
                         subject.getCredits(),
                         subject.getGradeLetter(),
