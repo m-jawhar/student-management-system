@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.mace.sms.model.Course;
 import com.mace.sms.model.Semester;
 import com.mace.sms.model.Student;
 
@@ -26,13 +27,17 @@ import com.mace.sms.model.Student;
  */
 public class StudentManager {
     private static final String DATA_FILE = "data/students.json";
+    private static final String COURSES_FILE = "data/courses.json";
     private final Map<String, Student> students;
+    private final Map<String, Course> courses;
     private final Gson gson;
 
     public StudentManager() {
         this.students = new HashMap<>();
+        this.courses = new HashMap<>();
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         loadStudents();
+        loadCourses();
     }
 
     // ==================== STUDENT OPERATIONS ====================
@@ -100,6 +105,39 @@ public class StudentManager {
                 .filter(s -> s.getName().toLowerCase().contains(lowerSearchTerm))
                 .sorted()
                 .collect(Collectors.toList());
+    }
+
+    // ==================== COURSE CATALOG OPERATIONS ====================
+
+    /**
+     * Adds a new course to the catalog.
+     */
+    public void addCourse(Course course) {
+        if (courses.containsKey(course.getCourseCode())) {
+            throw new IllegalArgumentException("Course with code " + course.getCourseCode() + " already exists");
+        }
+        courses.put(course.getCourseCode(), course);
+    }
+
+    /**
+     * Gets a course by course code.
+     */
+    public Optional<Course> getCourse(String courseCode) {
+        return Optional.ofNullable(courses.get(courseCode));
+    }
+
+    /**
+     * Gets all courses in the catalog.
+     */
+    public Collection<Course> getAllCourses() {
+        return Collections.unmodifiableCollection(courses.values());
+    }
+
+    /**
+     * Removes a course from the catalog.
+     */
+    public boolean removeCourse(String courseCode) {
+        return courses.remove(courseCode) != null;
     }
 
     // ==================== GRADING OPERATIONS ====================
@@ -263,6 +301,44 @@ public class StudentManager {
             }
         } catch (IOException e) {
             System.err.println("Error loading students: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Saves courses to JSON file.
+     */
+    public void saveCourses() {
+        File dataFile = new File(COURSES_FILE);
+        dataFile.getParentFile().mkdirs();
+
+        try (FileWriter writer = new FileWriter(dataFile)) {
+            gson.toJson(new ArrayList<>(courses.values()), writer);
+        } catch (IOException e) {
+            System.err.println("Error saving courses: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Loads courses from JSON file.
+     */
+    private void loadCourses() {
+        File dataFile = new File(COURSES_FILE);
+        if (!dataFile.exists()) {
+            return;
+        }
+
+        try (FileReader reader = new FileReader(dataFile)) {
+            Type courseListType = new TypeToken<ArrayList<Course>>() {
+            }.getType();
+            List<Course> loadedCourses = gson.fromJson(reader, courseListType);
+
+            if (loadedCourses != null) {
+                for (Course course : loadedCourses) {
+                    courses.put(course.getCourseCode(), course);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading courses: " + e.getMessage());
         }
     }
 

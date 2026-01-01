@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 
+import com.mace.sms.model.Course;
 import com.mace.sms.model.Semester;
 import com.mace.sms.model.Student;
 import com.mace.sms.model.Subject;
@@ -33,21 +34,22 @@ public class Main {
         while (running) {
             try {
                 DisplayUtil.displayMenu();
-                int choice = InputValidator.readInt(scanner, "Enter your choice (1-8): ");
+                int choice = InputValidator.readInt(scanner, "Enter your choice (1-9): ");
 
                 switch (choice) {
                     case 1 -> addStudentOrSemester();
-                    case 2 -> displayAllStudents();
-                    case 3 -> viewStudentReport();
-                    case 4 -> updateSemesterMarks();
-                    case 5 -> deleteStudent();
-                    case 6 -> showStatistics();
-                    case 7 -> showLeaderboard();
-                    case 8 -> {
+                    case 2 -> manageCourses();
+                    case 3 -> displayAllStudents();
+                    case 4 -> viewStudentReport();
+                    case 5 -> updateSemesterMarks();
+                    case 6 -> deleteStudent();
+                    case 7 -> showStatistics();
+                    case 8 -> showLeaderboard();
+                    case 9 -> {
                         saveAndExit();
                         running = false;
                     }
-                    default -> System.out.println("❌ Invalid choice. Please enter 1-8.");
+                    default -> System.out.println("❌ Invalid choice. Please enter 1-9.");
                 }
             } catch (Exception e) {
                 System.out.println("❌ Error: " + e.getMessage());
@@ -146,12 +148,47 @@ public class Main {
 
         for (int i = 1; i <= subjectCount; i++) {
             System.out.println("\n--- Subject " + i + " ---");
-            String courseCode = InputValidator.readNonEmptyString(scanner, "Course code (e.g., CS101): ");
-            String name = InputValidator.readNonEmptyString(scanner, "Subject name: ");
-            String instructor = InputValidator.readNonEmptyString(scanner, "Instructor name: ");
-            double marks = InputValidator.readMarks(scanner, "Marks (0-100): ");
-            int credits = InputValidator.readCredits(scanner, "Credits: ");
+            System.out.println("1. Select from Course Catalog");
+            System.out.println("2. Enter Course Details Manually");
+            int choice = InputValidator.readInt(scanner, "Choice (1-2): ");
 
+            String courseCode, name, instructor;
+            int credits;
+
+            if (choice == 1 && !manager.getAllCourses().isEmpty()) {
+                // Show available courses
+                System.out.println("\nAvailable Courses:");
+                List<Course> courseList = new ArrayList<>(manager.getAllCourses());
+                for (int j = 0; j < courseList.size(); j++) {
+                    System.out.println((j + 1) + ". " + courseList.get(j));
+                }
+
+                int courseIndex = InputValidator.readInt(scanner, "Select course (1-" + courseList.size() + "): ") - 1;
+                if (courseIndex >= 0 && courseIndex < courseList.size()) {
+                    Course selectedCourse = courseList.get(courseIndex);
+                    courseCode = selectedCourse.getCourseCode();
+                    name = selectedCourse.getName();
+                    instructor = selectedCourse.getInstructor();
+                    credits = selectedCourse.getCredits();
+                } else {
+                    System.out.println("Invalid selection, entering manually...");
+                    courseCode = InputValidator.readNonEmptyString(scanner, "Course code (e.g., CS101): ");
+                    name = InputValidator.readNonEmptyString(scanner, "Subject name: ");
+                    instructor = InputValidator.readNonEmptyString(scanner, "Instructor name: ");
+                    credits = InputValidator.readCredits(scanner, "Credits: ");
+                }
+            } else {
+                // Manual entry
+                if (choice == 1) {
+                    System.out.println("No courses in catalog. Entering manually...");
+                }
+                courseCode = InputValidator.readNonEmptyString(scanner, "Course code (e.g., CS101): ");
+                name = InputValidator.readNonEmptyString(scanner, "Subject name: ");
+                instructor = InputValidator.readNonEmptyString(scanner, "Instructor name: ");
+                credits = InputValidator.readCredits(scanner, "Credits: ");
+            }
+
+            double marks = InputValidator.readMarks(scanner, "Marks (0-100): ");
             semester.addSubject(new Subject(courseCode, name, instructor, marks, credits));
         }
         return semester;
@@ -294,9 +331,103 @@ public class Main {
         DisplayUtil.displayLeaderboard(leaderboard);
     }
 
+    private static void manageCourses() {
+        System.out.println("\n" + "═".repeat(79));
+        System.out.println("                    COURSE CATALOG MANAGEMENT");
+        System.out.println("═".repeat(79));
+        System.out.println("1. Add New Course");
+        System.out.println("2. View All Courses");
+        System.out.println("3. Remove Course");
+        System.out.println("4. Back to Main Menu");
+        System.out.println("═".repeat(79));
+
+        int choice = InputValidator.readInt(scanner, "Enter choice (1-4): ");
+
+        switch (choice) {
+            case 1 -> addCourse();
+            case 2 -> viewAllCourses();
+            case 3 -> removeCourse();
+            case 4 -> {
+            } // Return to main menu
+            default -> System.out.println("❌ Invalid choice.");
+        }
+    }
+
+    private static void addCourse() {
+        try {
+            System.out.println("\n--- ADD NEW COURSE ---");
+            String courseCode = InputValidator.readNonEmptyString(scanner, "Course code (e.g., CS101): ");
+
+            if (manager.getCourse(courseCode).isPresent()) {
+                System.out.println("❌ Course with code " + courseCode + " already exists!");
+                return;
+            }
+
+            String name = InputValidator.readNonEmptyString(scanner, "Course name: ");
+            int credits = InputValidator.readCredits(scanner, "Credits: ");
+            String instructor = InputValidator.readNonEmptyString(scanner, "Instructor name: ");
+
+            Course course = new Course(courseCode, name, credits, instructor);
+            manager.addCourse(course);
+            manager.saveCourses();
+
+            System.out.println("✅ Course added successfully!");
+            System.out.println("   " + course);
+        } catch (Exception e) {
+            System.out.println("❌ Error: " + e.getMessage());
+        }
+    }
+
+    private static void viewAllCourses() {
+        Collection<Course> courses = manager.getAllCourses();
+
+        if (courses.isEmpty()) {
+            System.out.println("\n📭 No courses in catalog.");
+            return;
+        }
+
+        System.out.println("\n" + "═".repeat(79));
+        System.out.println("                    COURSE CATALOG");
+        System.out.println("═".repeat(79));
+        System.out.printf("%-10s | %-30s | %7s | %-20s%n",
+                "Code", "Course Name", "Credits", "Instructor");
+        System.out.println("─".repeat(79));
+
+        courses.forEach(course -> System.out.println(course));
+
+        System.out.println("─".repeat(79));
+        System.out.println("Total Courses: " + courses.size());
+    }
+
+    private static void removeCourse() {
+        try {
+            String courseCode = InputValidator.readNonEmptyString(scanner, "Enter course code to remove: ");
+
+            Optional<Course> course = manager.getCourse(courseCode);
+            if (course.isEmpty()) {
+                System.out.println("❌ Course not found: " + courseCode);
+                return;
+            }
+
+            System.out.println("\nCourse: " + course.get());
+            String confirm = InputValidator.readNonEmptyString(scanner, "Confirm deletion (yes/no): ");
+
+            if (confirm.equalsIgnoreCase("yes")) {
+                manager.removeCourse(courseCode);
+                manager.saveCourses();
+                System.out.println("✅ Course removed successfully!");
+            } else {
+                System.out.println("❌ Deletion cancelled");
+            }
+        } catch (Exception e) {
+            System.out.println("❌ Error: " + e.getMessage());
+        }
+    }
+
     private static void saveAndExit() {
         System.out.println("\n💾 Saving data...");
         manager.saveStudents();
+        manager.saveCourses();
         System.out.println("✅ Data saved successfully!");
         System.out.println("\n👋 Thank you for using Student Management System!");
         System.out.println("═".repeat(79));

@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import com.mace.sms.model.Course;
 import com.mace.sms.model.Semester;
 import com.mace.sms.model.Student;
 import com.mace.sms.model.Subject;
@@ -301,5 +302,56 @@ class StudentManagementTest {
         assertEquals("First Class", manager.getClassification(6.5));
         assertEquals("Second Class", manager.getClassification(5.5));
         assertEquals("Pass Class", manager.getClassification(5.0));
+    }
+
+    // ==================== COURSE CATALOG TESTS ====================
+
+    @Test
+    void testAddAndGetCourse() {
+        StudentManager manager = new StudentManager();
+        Course course = new Course("CS101", "Data Structures", 4, "Dr. Johnson");
+
+        manager.addCourse(course);
+        assertTrue(manager.getCourse("CS101").isPresent());
+        assertEquals("Data Structures", manager.getCourse("CS101").get().getName());
+    }
+
+    @Test
+    void testDuplicateCourseCode() {
+        StudentManager manager = new StudentManager();
+        Course course1 = new Course("CS101", "Data Structures", 4, "Dr. Johnson");
+        Course course2 = new Course("CS101", "Algorithms", 3, "Dr. Smith");
+
+        manager.addCourse(course1);
+        assertThrows(IllegalArgumentException.class, () -> manager.addCourse(course2));
+    }
+
+    @Test
+    void testRemoveCourse() {
+        StudentManager manager = new StudentManager();
+        Course course = new Course("MATH201", "Calculus", 3, "Dr. Brown");
+
+        manager.addCourse(course);
+        assertTrue(manager.getCourse("MATH201").isPresent());
+
+        boolean removed = manager.removeCourse("MATH201");
+        assertTrue(removed);
+        assertFalse(manager.getCourse("MATH201").isPresent());
+    }
+
+    @Test
+    void testGetAllCourses() {
+        StudentManager manager = new StudentManager();
+
+        // Clear existing courses
+        manager.getAllCourses().stream()
+                .map(Course::getCourseCode)
+                .toList()
+                .forEach(manager::removeCourse);
+
+        manager.addCourse(new Course("CS101", "Data Structures", 4, "Dr. Johnson"));
+        manager.addCourse(new Course("MATH201", "Calculus", 3, "Dr. Brown"));
+
+        assertEquals(2, manager.getAllCourses().size());
     }
 }

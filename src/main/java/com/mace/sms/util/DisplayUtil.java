@@ -25,13 +25,14 @@ public class DisplayUtil {
         System.out.println("           🎓 STUDENT MANAGEMENT SYSTEM - MACE 2024 🎓");
         System.out.println(HORIZONTAL_LINE);
         System.out.println("1. ➕ Add Student / Semester Data");
-        System.out.println("2. 📋 Display All Students");
-        System.out.println("3. 📊 View Student Report");
-        System.out.println("4. ✏️  Update Semester Marks");
-        System.out.println("5. 🗑️  Delete Student");
-        System.out.println("6. 📈 Show Statistics");
-        System.out.println("7. 🏆 Show Leaderboard");
-        System.out.println("8. 💾 Save & Exit");
+        System.out.println("2. � Manage Course Catalog");
+        System.out.println("3. 📋 Display All Students");
+        System.out.println("4. 📊 View Student Report");
+        System.out.println("5. ✏️  Update Semester Marks");
+        System.out.println("6. 🗑️  Delete Student");
+        System.out.println("7. 📈 Show Statistics");
+        System.out.println("8. 🏆 Show Leaderboard");
+        System.out.println("9. 💾 Save & Exit");
         System.out.println(HORIZONTAL_LINE);
     }
 
